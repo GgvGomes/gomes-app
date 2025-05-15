@@ -1,15 +1,12 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  output: 'export',
+  basePath: '/gomes-app',
   images: {
     unoptimized: true,
   },
+  reactStrictMode: true,
+  swcMinify: true,
 };
 
 export default nextConfig;
