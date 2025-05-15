@@ -102,7 +102,7 @@ export default function GlobalError({
             </div>
           </div>
 
-          {/* Estrelas de fundo */}
+          {/* Estrelas de fundo simples sem animação para evitar problemas */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
             {[...Array(50)].map((_, i) => (
               <div
@@ -114,25 +114,10 @@ export default function GlobalError({
                   width: `${Math.random() * 3 + 1}px`,
                   height: `${Math.random() * 3 + 1}px`,
                   opacity: Math.random() * 0.5 + 0.3,
-                  animation: `twinkle ${Math.random() * 5 + 3}s infinite ${
-                    Math.random() * 5
-                  }s`,
                 }}
               />
             ))}
           </div>
-
-          <style jsx>{`
-            @keyframes twinkle {
-              0%,
-              100% {
-                opacity: 0.3;
-              }
-              50% {
-                opacity: 0.8;
-              }
-            }
-          `}</style>
         </div>
       </body>
     </html>

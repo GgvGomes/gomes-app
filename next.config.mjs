@@ -46,9 +46,9 @@ const nextConfig = {
   },
   // Compressão de resposta para melhor performance
   compress: true,
-  // Otimização de build
+  // Desativar otimização de CSS que está causando o erro
   experimental: {
-    optimizeCss: true,
+    optimizeCss: false, // Desativado para evitar problemas com critters
     optimizePackageImports: ['lucide-react'],
   },
 };

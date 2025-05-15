@@ -1,12 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Página não encontrada | Gomes App",
-  description: "A página que você está procurando não foi encontrada.",
-};
 
 export default function NotFound() {
   return (
