@@ -5,7 +5,11 @@
       "title": "E-Commerce Website",
       "category": "web",
       "image": "/assets/images/project-placeholder.jpg",
-      "technologies": ["React", "Node.js", "MongoDB"],
+      "technologies": [
+        "React",
+        "Node.js",
+        "MongoDB"
+      ],
       "description": "Full-featured e-commerce platform with product catalog, cart, and payment integration.",
       "link": "#",
       "github": "https://github.com/",
@@ -16,7 +20,10 @@
       "title": "Task Management App",
       "category": "mobile",
       "image": "/assets/images/project-placeholder.jpg",
-      "technologies": ["React Native", "Firebase"],
+      "technologies": [
+        "React Native",
+        "Firebase"
+      ],
       "description": "A mobile app for task organization with real-time updates and notifications.",
       "link": "#",
       "github": "https://github.com/",
@@ -27,7 +34,11 @@
       "title": "Portfolio Website",
       "category": "web",
       "image": "/assets/images/project-placeholder.jpg",
-      "technologies": ["HTML", "CSS", "JavaScript"],
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
       "description": "A responsive portfolio website showcasing projects and skills.",
       "link": "#",
       "github": "https://github.com/",
@@ -38,7 +49,11 @@
       "title": "Weather Dashboard",
       "category": "web",
       "image": "/assets/images/project-placeholder.jpg",
-      "technologies": ["React", "OpenWeather API", "Chart.js"],
+      "technologies": [
+        "React",
+        "OpenWeather API",
+        "Chart.js"
+      ],
       "description": "Interactive weather dashboard with forecasts and historical data visualization.",
       "link": "#",
       "github": "https://github.com/",
@@ -49,7 +64,11 @@
       "title": "Fitness Tracker",
       "category": "mobile",
       "image": "/assets/images/project-placeholder.jpg",
-      "technologies": ["Flutter", "Firebase", "Google Fit API"],
+      "technologies": [
+        "Flutter",
+        "Firebase",
+        "Google Fit API"
+      ],
       "description": "Mobile app for tracking workouts, nutrition, and fitness goals with progress analytics.",
       "link": "#",
       "github": "https://github.com/",
@@ -60,7 +79,11 @@
       "title": "UI Component Library",
       "category": "ui",
       "image": "/assets/images/project-placeholder.jpg",
-      "technologies": ["React", "Storybook", "Styled Components"],
+      "technologies": [
+        "React",
+        "Storybook",
+        "Styled Components"
+      ],
       "description": "Reusable UI component library with comprehensive documentation and examples.",
       "link": "#",
       "github": "https://github.com/",

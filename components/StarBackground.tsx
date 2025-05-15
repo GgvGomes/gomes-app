@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Star {
   x: number;
@@ -21,19 +21,45 @@ interface Star {
 
 const StarBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detectar dispositivos móveis para otimização
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: false }); // Otimização: desativar alpha para melhor performance
     if (!ctx) return;
 
-    // Set canvas size
+    // Set canvas size com devicePixelRatio para telas de alta resolução
     const setCanvasSize = () => {
       if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+
+        // Definir tamanho lógico do canvas
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+
+        // Escalar o contexto
+        ctx.scale(dpr, dpr);
+
+        // Redefinir o estilo CSS
+        canvas.style.width = `${rect.width}px`;
+        canvas.style.height = `${rect.height}px`;
       }
     };
 
@@ -43,9 +69,12 @@ const StarBackground = () => {
     // Update canvas size when window is resized
     window.addEventListener("resize", setCanvasSize);
 
-    // Star properties
+    // Star properties - reduzir em dispositivos móveis para melhor performance
     const stars: Star[] = [];
-    const count = 250; // Número de estrelas
+    const count = isMobile ? 150 : 250; // Menos estrelas em dispositivos móveis
+
+    // Otimização: Pré-calcular valores comuns
+    const TWO_PI = Math.PI * 2;
 
     // Star class
     class StarImpl implements Star {
@@ -76,8 +105,8 @@ const StarBackground = () => {
         if (!canvas) return;
 
         // Distribuir as estrelas aleatoriamente por toda a tela
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.x = Math.random() * (canvas.width / (window.devicePixelRatio || 1));
+        this.y = Math.random() * (canvas.height / (window.devicePixelRatio || 1));
 
         // Profundidade aleatória entre 1 e 2000 para maior variação
         this.z = Math.random() * 2000 + 1;
@@ -97,11 +126,11 @@ const StarBackground = () => {
         this.twinkleSpeed = Math.random() * 0.02 + 0.005;
 
         // Fator inicial aleatório para evitar que todas cintilam juntas
-        this.twinkleFactor = Math.random() * Math.PI * 2;
+        this.twinkleFactor = Math.random() * TWO_PI;
       }
 
       getStarColor() {
-        // Paleta de cores expandida que combina com o tema azul/roxo do site
+        // Paleta de cores expandida que combina com o tema roxo/azul do site
         const colors = [
           "rgba(255, 255, 255, ", // Branco puro
           "rgba(230, 230, 255, ", // Branco azulado
@@ -112,10 +141,10 @@ const StarBackground = () => {
           "rgba(138, 43, 226, ", // Violeta
           "rgba(221, 160, 221, ", // Roxo claro
           "rgba(186, 85, 211, ", // Roxo médio
-          "rgba(255, 223, 186, ", // Amarelo pêssego (para estrelas mais quentes)
-          "rgba(255, 192, 203, ", // Rosa claro
-          "rgba(64, 224, 208, ", // Turquesa
-          "rgba(175, 238, 238, ", // Azul turquesa claro
+          "rgba(123, 104, 238, ", // Azul-violeta
+          "rgba(106, 90, 205, ", // Azul-violeta escuro
+          "rgba(72, 61, 139, ", // Azul-violeta muito escuro
+          "rgba(65, 105, 225, ", // Azul real
         ];
 
         // Adiciona uma pequena chance de estrelas mais brilhantes em cores específicas
@@ -123,7 +152,7 @@ const StarBackground = () => {
           return [
             "rgba(255, 255, 255, ", // Branco brilhante
             "rgba(200, 200, 255, ", // Azul brilhante
-            "rgba(255, 223, 186, ", // Amarelo brilhante
+            "rgba(180, 180, 255, ", // Azul-violeta brilhante
           ][Math.floor(Math.random() * 3)];
         }
 
@@ -154,15 +183,20 @@ const StarBackground = () => {
 
         // Fator de escala reduzido para efeito de profundidade mais sutil
         const scaleFactor = 3;
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
+        const cx = canvas.width / (window.devicePixelRatio || 1) / 2;
+        const cy = canvas.height / (window.devicePixelRatio || 1) / 2;
 
         // Calculate screen position with perspective
         const x = (this.x - cx) * (scaleFactor / this.z) + cx;
         const y = (this.y - cy) * (scaleFactor / this.z) + cy;
 
         // Only draw if within bounds
-        if (x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height) {
+        if (
+          x >= 0 &&
+          x <= canvas.width / (window.devicePixelRatio || 1) &&
+          y >= 0 &&
+          y <= canvas.height / (window.devicePixelRatio || 1)
+        ) {
           // Size proportional to depth - reduzido para estrelas menores
           const sizeFactor = 1 - this.z / 2000;
           const finalSize = this.size * sizeFactor * 2;
@@ -173,14 +207,14 @@ const StarBackground = () => {
           // Draw the star
           ctx.beginPath();
           ctx.fillStyle = `${this.color}${finalOpacity})`;
-          ctx.arc(x, y, finalSize, 0, Math.PI * 2);
+          ctx.arc(x, y, finalSize, 0, TWO_PI);
           ctx.fill();
 
           // Efeito de brilho reduzido e apenas para estrelas maiores
           if (finalSize > 0.8 && Math.random() > 0.7) {
             ctx.beginPath();
             ctx.fillStyle = `${this.color}${finalOpacity * 0.3})`;
-            ctx.arc(x, y, finalSize * 1.5, 0, Math.PI * 2);
+            ctx.arc(x, y, finalSize * 1.5, 0, TWO_PI);
             ctx.fill();
           }
         }
@@ -195,42 +229,57 @@ const StarBackground = () => {
       stars.push(star);
     }
 
+    // Otimização: Usar requestAnimationFrame com throttling
+    let lastTime = 0;
+    const fps = 30; // Limitar a 30 FPS para economizar recursos
+    const fpsInterval = 1000 / fps;
+
     // Animation loop
     let animationId: number;
-    const animate = () => {
+    const animate = (currentTime: number) => {
       if (!ctx || !canvas) return;
 
-      // Limpar completamente o canvas a cada frame para eliminar os rastros
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      animationId = requestAnimationFrame(animate);
 
-      // Alternativamente, se quiser um rastro muito sutil, use isto em vez do clearRect:
-      // ctx.fillStyle = "rgba(5, 8, 22, 0.8)"; // Opacidade alta para rastro mínimo
-      // ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Calcular tempo decorrido
+      const elapsed = currentTime - lastTime;
+
+      // Limitar taxa de quadros
+      if (elapsed < fpsInterval) return;
+
+      // Atualizar lastTime
+      lastTime = currentTime - (elapsed % fpsInterval);
+
+      // Limpar completamente o canvas a cada frame para eliminar os rastros
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width / (window.devicePixelRatio || 1),
+        canvas.height / (window.devicePixelRatio || 1)
+      );
 
       // Update and draw stars
       stars.forEach((star) => {
         star.update();
         star.draw();
       });
-
-      // Continue animation
-      animationId = requestAnimationFrame(animate);
     };
 
     // Start animation
-    animate();
+    animationId = requestAnimationFrame(animate);
 
     // Cleanup on unmount
     return () => {
       window.removeEventListener("resize", setCanvasSize);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[#050816]"
+      className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[transparent]"
+      aria-hidden="true" // Acessibilidade: indicar que é decorativo
     />
   );
 };
