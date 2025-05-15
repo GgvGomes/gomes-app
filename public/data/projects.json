@@ -1,0 +1,70 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "E-Commerce Website",
+      "category": "web",
+      "image": "/assets/images/project-placeholder.jpg",
+      "technologies": ["React", "Node.js", "MongoDB"],
+      "description": "Full-featured e-commerce platform with product catalog, cart, and payment integration.",
+      "link": "#",
+      "github": "https://github.com/",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Task Management App",
+      "category": "mobile",
+      "image": "/assets/images/project-placeholder.jpg",
+      "technologies": ["React Native", "Firebase"],
+      "description": "A mobile app for task organization with real-time updates and notifications.",
+      "link": "#",
+      "github": "https://github.com/",
+      "featured": true
+    },
+    {
+      "id": 3,
+      "title": "Portfolio Website",
+      "category": "web",
+      "image": "/assets/images/project-placeholder.jpg",
+      "technologies": ["HTML", "CSS", "JavaScript"],
+      "description": "A responsive portfolio website showcasing projects and skills.",
+      "link": "#",
+      "github": "https://github.com/",
+      "featured": false
+    },
+    {
+      "id": 4,
+      "title": "Weather Dashboard",
+      "category": "web",
+      "image": "/assets/images/project-placeholder.jpg",
+      "technologies": ["React", "OpenWeather API", "Chart.js"],
+      "description": "Interactive weather dashboard with forecasts and historical data visualization.",
+      "link": "#",
+      "github": "https://github.com/",
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Fitness Tracker",
+      "category": "mobile",
+      "image": "/assets/images/project-placeholder.jpg",
+      "technologies": ["Flutter", "Firebase", "Google Fit API"],
+      "description": "Mobile app for tracking workouts, nutrition, and fitness goals with progress analytics.",
+      "link": "#",
+      "github": "https://github.com/",
+      "featured": false
+    },
+    {
+      "id": 6,
+      "title": "UI Component Library",
+      "category": "ui",
+      "image": "/assets/images/project-placeholder.jpg",
+      "technologies": ["React", "Storybook", "Styled Components"],
+      "description": "Reusable UI component library with comprehensive documentation and examples.",
+      "link": "#",
+      "github": "https://github.com/",
+      "featured": false
+    }
+  ]
+}
