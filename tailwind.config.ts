@@ -1,63 +1,185 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 const config: Config = {
-    darkMode: ["class"],
-    content: [
+  content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "*.{js,ts,jsx,tsx,mdx}",
+    "app/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
   ],
   theme: {
-  	extend: {
-  		colors: {
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
-  			},
-  			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
-  			},
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			chart: {
-  				'1': 'hsl(var(--chart-1))',
-  				'2': 'hsl(var(--chart-2))',
-  				'3': 'hsl(var(--chart-3))',
-  				'4': 'hsl(var(--chart-4))',
-  				'5': 'hsl(var(--chart-5))'
-  			}
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		}
-  	}
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      animation: {
+        float: "float 6s ease-in-out infinite",
+        "fade-in": "fade-in 1s ease-out forwards",
+        "slide-up": "slide-up 0.5s ease-out forwards",
+        "fade-in-down": "fade-in-down 0.3s ease-out forwards",
+      },
+      keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "slide-up": {
+          from: { opacity: "0", transform: "translateY(10px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in-down": {
+          from: { opacity: "0", transform: "translateY(-10px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+    },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
+  safelist: [
+    // Adicionar classes essenciais ao safelist para garantir que sejam incluídas no build
+    "bg-gradient-to-b",
+    "from-[#1a1040]",
+    "to-[#0c1a4d]",
+    "text-white",
+    "min-h-screen",
+    "flex",
+    "flex-col",
+    "items-center",
+    "justify-center",
+    "fixed",
+    "w-full",
+    "h-full",
+    "top-0",
+    "left-0",
+    "z-10",
+    "pointer-events-none",
+    "bg-[#1a1040]",
+    "container",
+    "mx-auto",
+    "px-4",
+    "md:px-6",
+    "py-4",
+    "md:flex",
+    "space-x-8",
+    "text-gray-400",
+    "hover:text-white",
+    "transition-all",
+    "duration-300",
+    "text-base",
+    "font-medium",
+    "text-center",
+    "md:text-left",
+    "animate-fade-in",
+    "text-4xl",
+    "md:text-5xl",
+    "lg:text-6xl",
+    "font-bold",
+    "mb-4",
+    "text-transparent",
+    "bg-clip-text",
+    "bg-gradient-to-r",
+    "from-blue-400",
+    "to-purple-600",
+    "text-2xl",
+    "md:text-3xl",
+    "lg:text-4xl",
+    "text-gray-300",
+    "text-lg",
+    "mb-8",
+    "max-w-lg",
+    "mx-auto",
+    "md:mx-0",
+    "flex-wrap",
+    "gap-4",
+    "justify-center",
+    "md:justify-start",
+    "px-6",
+    "py-3",
+    "from-blue-500",
+    "to-purple-600",
+    "rounded-lg",
+    "hover:opacity-90",
+    "transition-opacity",
+    "border",
+    "border-purple-500",
+    "hover:bg-purple-500/10",
+    "mt-8",
+    "gap-4",
+    "md:w-1/2",
+    "mt-10",
+    "md:mt-0",
+    "md:pr-10",
+    "md:w-1/2",
+    "justify-center",
+    "animate-float",
+    "w-56",
+    "h-56",
+    "md:w-72",
+    "md:h-72",
+    "rounded-full",
+    "overflow-hidden",
+    "border-4",
+    "border-purple-500/30",
+    "shadow-xl",
+    "shadow-purple-500/20",
+    "relative",
+    "w-full",
+    "h-full",
+    "object-cover",
+    "absolute",
+    "bottom-10",
+    "transform",
+    "-translate-x-1/2",
+    "animate-bounce",
+    "sr-only",
+    "h-6",
+    "w-6",
+    "text-purple-500",
+  ],
 };
+
 export default config;

@@ -251,7 +251,8 @@ const StarBackground = () => {
       lastTime = currentTime - (elapsed % fpsInterval);
 
       // Limpar completamente o canvas a cada frame para eliminar os rastros
-      ctx.clearRect(
+      ctx.fillStyle = "#1a1040"; // Cor de fundo igual ao gradiente
+      ctx.fillRect(
         0,
         0,
         canvas.width / (window.devicePixelRatio || 1),
@@ -279,6 +280,16 @@ const StarBackground = () => {
     <canvas
       ref={canvasRef}
       className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none bg-[transparent]"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: -10,
+        pointerEvents: "none",
+        backgroundColor: "transparent",
+      }}
       aria-hidden="true" // Acessibilidade: indicar que é decorativo
     />
   );

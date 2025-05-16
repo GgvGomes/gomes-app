@@ -46,10 +46,43 @@ const nextConfig = {
   },
   // Compressão de resposta para melhor performance
   compress: true,
-  // Desativar otimização de CSS que está causando o erro
+  // Configurações para resolver problemas de CSS
   experimental: {
     optimizeCss: false, // Desativado para evitar problemas com critters
     optimizePackageImports: ['lucide-react'],
+  },
+  // Garantir que o CSS seja processado corretamente
+  webpack: (config) => {
+    // Configuração para garantir que o CSS seja processado corretamente
+    const oneOfRule = config.module.rules.find(
+      (rule) => typeof rule.oneOf === 'object'
+    );
+
+    if (oneOfRule) {
+      const cssModuleRules = oneOfRule.oneOf.filter(
+        (rule) => rule.test && rule.test.toString().includes('css')
+      );
+
+      for (const rule of cssModuleRules) {
+        if (rule.use && Array.isArray(rule.use)) {
+          rule.use.forEach((loader) => {
+            if (
+              loader.loader &&
+              loader.loader.includes('css-loader') &&
+              typeof loader.options === 'object'
+            ) {
+              // Garantir que o CSS seja processado corretamente
+              loader.options.modules = {
+                ...loader.options.modules,
+                exportOnlyLocals: false,
+              };
+            }
+          });
+        }
+      }
+    }
+
+    return config;
   },
 };
 
