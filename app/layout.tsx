@@ -99,11 +99,8 @@ export default function RootLayout({
         {/* Favicon otimizado */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
-        {/* Garantir que o CSS seja carregado corretamente */}
-        <link rel="stylesheet" href="/_next/static/css/app/layout.css" />
       </head>
-      <body className="font-sans bg-gradient-to-b from-[#3115a0] to-[#0c1a4d] text-white min-h-screen overflow-x-hidden">
+      <body className="font-sans bg-gradient-to-b from-[#1a1040] to-[#0c1a4d] text-white min-h-screen overflow-x-hidden">
         {children}
 
         {/* Structured Data para Rich Snippets */}
