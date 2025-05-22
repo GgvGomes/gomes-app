@@ -4,9 +4,6 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "*.{js,ts,jsx,tsx,mdx}",
-    "app/**/*.{ts,tsx}",
-    "components/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
@@ -76,5 +73,16 @@ module.exports = {
       },
     },
   },
+  safelist: [
+    'fixed',
+    'top-0',
+    'left-0',
+    'w-full',
+    'h-full',
+    '-z-10',
+    'pointer-events-none',
+    'bg-[transparent]',
+    // Adicione outras classes que você precisa manter
+  ],
   plugins: [require("tailwindcss-animate")],
 }
